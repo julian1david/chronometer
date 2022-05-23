@@ -3,7 +3,6 @@ let secondValue = 0;
 let currentTimer;
 
 
-
 const startTimer = () => {
     currentTimer = setInterval(() => {
         secondValue ++;
@@ -12,11 +11,10 @@ const startTimer = () => {
 }
 
 const pauseTimer = () => {
-    secondValue = secondValue;
-
+    console.log("Pause");
 } 
+
 let buttons = document.querySelector('#buttons');
-let play = document.querySelector("#start")
 
 buttons.addEventListener('click', (e) => {
     if(e.target.id === "start"){
