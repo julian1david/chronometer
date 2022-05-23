@@ -1,0 +1,17 @@
+$bg-dark : #121412;
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: $bg-dark;
+}
+
+
+.Header{
+    width: 100%;
+}
+
