@@ -4,12 +4,95 @@
   box-sizing: border-box;
 }
 
+html {
+  font-size: 62.5%;
+}
+
 body {
   background-color: #121412;
+  color: white;
+  font-size: 1.8rem;
+  font-family: "Red Hat Display", sans-serif;
 }
 
 .Header {
   width: 100%;
+}
+
+.Main {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Hero {
+  text-align: center;
+}
+.Hero__time {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.Time {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  align-items: center;
+  gap: 0.5px;
+  width: 60px;
+  color: rgb(251, 96, 135);
+}
+.Time__side {
+  height: 25px;
+  width: 100%;
+  background-color: rgba(59, 130, 246, 0.5);
+}
+.Time__side-a {
+  border-radius: 6px 6px 0 0;
+  animation: abanico;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+}
+@keyframes abanico {
+  70% {
+    transform: rotate3d(1, 0, 0, 180deg) translateY(-25px);
+    opacity: 0;
+  }
+}
+.Time__side-b {
+  border-radius: 0 0 6px 6px;
+}
+.Time__text {
+  font-size: 2.8rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  transform: translateY(6px);
+  position: absolute;
+}
+.Time__description {
+  font-size: 1.4rem;
+}
+
+.Buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  margin-top: 40px;
+}
+
+.Button {
+  padding: 10px;
+  border-radius: 10%;
+  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid rgb(251, 96, 135);
+  color: rgb(251, 96, 135);
 }
 
 /*# sourceMappingURL=style.css.map */

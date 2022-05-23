@@ -1,4 +1,6 @@
 $bg-dark : #121412;
+$very-pink: rgba(251,96,135);
+$blue-light: rgba(59,130,246,0.5);
 
 *{
     margin: 0;
@@ -6,12 +8,100 @@ $bg-dark : #121412;
     box-sizing: border-box;
 }
 
-body{
-    background-color: $bg-dark;
+html{
+    font-size: 62.5%;
 }
 
+body{
+    background-color: $bg-dark;
+    color: white;
+    font-size: 1.8rem;
+    font-family: 'Red Hat Display', sans-serif;
+}
 
 .Header{
     width: 100%;
 }
 
+.Main{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Hero{
+    text-align: center;
+    &__time{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
+    
+}
+
+.Time{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    align-items: center;
+    gap: 0.5px;
+    width: 60px;
+    color: $very-pink;
+    &__side{
+        height: 25px;
+        width: 100%;
+        background-color: $blue-light;
+        &-a{
+            border-radius: 6px 6px 0 0;
+            animation: abanico;
+            animation-duration: 2s;
+            animation-fill-mode: forwards;
+            animation-iteration-count: infinite;
+
+            @keyframes abanico {
+                0% {
+                }
+                70% {
+                    transform: rotate3d(1, 0, 0, 180deg) translateY(-25px);
+                    opacity: 0;
+                }
+                100%{
+
+                }
+            }
+        }
+        &-b{
+            border-radius: 0 0 6px 6px;
+        }
+    }
+    &__text{
+        font-size: 2.8rem;
+        font-weight: bold;
+        letter-spacing: 2px;
+        transform: translateY(6px);
+        position: absolute;
+    }
+    &__description{
+        font-size: 1.4rem;
+    }
+}
+
+.Buttons{
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.Button{
+    padding: 10px;
+    border-radius: 10%;
+    cursor: pointer;
+    background-color: transparent;
+    border: 1px solid $very-pink;
+    color: $very-pink;
+}
