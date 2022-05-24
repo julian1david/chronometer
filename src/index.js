@@ -17,7 +17,7 @@ const cronometro = () => {
     seconds.textContent = ("0" + secondsValue).slice(-2);
     animable[2].classList.add('Toggled');
     //Cuando el intervalo lleve secondsValue a 59            
-    if (secondsValue == 4) {
+    if (secondsValue == 59) {
         secondsValue = -1;
     }
     if (secondsValue == 0) {
@@ -25,7 +25,7 @@ const cronometro = () => {
         minutes.textContent = ("0" + minutesValue).slice(-2);
         animations[1].classList.add('Toggled');
     }
-    if (minutesValue == 2) {
+    if (minutesValue == 59) {
         minutesValue = -1;
     }
     if (secondsValue == 0 && minutesValue == 0) {
