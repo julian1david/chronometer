@@ -12,9 +12,13 @@ animations.forEach(item => item.addEventListener('animationend', () => {
     item.classList.remove('Toggled')
 }));
 
+function formatTime(valor){
+    return ("0" + valor).slice(-2)
+}
+
 const cronometro = () => {
     secondsValue++;
-    seconds.textContent = ("0" + secondsValue).slice(-2);
+    seconds.textContent = formatTime(secondsValue);
     animable[2].classList.add('Toggled');
     //Cuando el intervalo lleve secondsValue a 59            
     if (secondsValue == 59) {
@@ -22,7 +26,7 @@ const cronometro = () => {
     }
     if (secondsValue == 0) {
         minutesValue++;
-        minutes.textContent = ("0" + minutesValue).slice(-2);
+        minutes.textContent = formatTime(minutesValue);
         animations[1].classList.add('Toggled');
     }
     if (minutesValue == 59) {
@@ -30,11 +34,11 @@ const cronometro = () => {
     }
     if (secondsValue == 0 && minutesValue == 0) {
         hoursValue++;
-        hours.textContent = ("0" + hoursValue).slice(-2);;
+        hours.textContent = formatTime(hoursValue);
         animations[0].classList.add('Toggled');
-
     }
 }
+
 const startTimer = () => {
     currentTimer = setInterval(() => {
         cronometro()
