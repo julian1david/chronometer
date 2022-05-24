@@ -24,7 +24,7 @@ body{
 }
 
 .Main{
-    height: 100vh;
+    height: 90vh;
     width: 100%;
     display: flex;
     align-items: center;
@@ -55,24 +55,10 @@ body{
         height: 25px;
         width: 100%;
         background-color: $blue-light;
+        transform-style: preserve-3d;
+        transform: rotateX(20deg);
         &-a{
             border-radius: 6px 6px 0 0;
-            animation: abanico;
-            animation-duration: 2s;
-            animation-fill-mode: forwards;
-            animation-iteration-count: infinite;
-
-            @keyframes abanico {
-                0% {
-                }
-                70% {
-                    transform: rotate3d(1, 0, 0, 180deg) translateY(-25px);
-                    opacity: 0;
-                }
-                100%{
-
-                }
-            }
         }
         &-b{
             border-radius: 0 0 6px 6px;
@@ -89,12 +75,16 @@ body{
         font-size: 1.4rem;
     }
 }
-
 .Buttons{
     display: flex;
     justify-content: space-between;
     gap: 40px;
     margin-top: 40px;
+    & button:disabled{
+        background-color: $blue-light;
+        color: $very-pink;
+        border: 1px solid $blue-light;
+    }
 }
 
 .Button{
@@ -103,5 +93,29 @@ body{
     cursor: pointer;
     background-color: transparent;
     border: 1px solid $very-pink;
-    color: $very-pink;
+    color: white;
 }
+
+.Footer{
+    height: 10vh;
+    text-align: center;
+    & a{
+        color: $blue-light;
+    }
+}
+.Toggled{
+    animation: abanico;
+    animation-duration: 0.5s;
+}
+
+@keyframes abanico {
+    0% {
+    }
+    70% {
+        transform: rotate3d(-1, 0, 0, 180deg) translateY(-25px);
+        opacity: 0;
+    }
+    100%{
+    }
+}
+

@@ -20,7 +20,7 @@ body {
 }
 
 .Main {
-  height: 100vh;
+  height: 90vh;
   width: 100%;
   display: flex;
   align-items: center;
@@ -51,19 +51,11 @@ body {
   height: 25px;
   width: 100%;
   background-color: rgba(59, 130, 246, 0.5);
+  transform-style: preserve-3d;
+  transform: rotateX(20deg);
 }
 .Time__side-a {
   border-radius: 6px 6px 0 0;
-  animation: abanico;
-  animation-duration: 2s;
-  animation-fill-mode: forwards;
-  animation-iteration-count: infinite;
-}
-@keyframes abanico {
-  70% {
-    transform: rotate3d(1, 0, 0, 180deg) translateY(-25px);
-    opacity: 0;
-  }
 }
 .Time__side-b {
   border-radius: 0 0 6px 6px;
@@ -85,6 +77,11 @@ body {
   gap: 40px;
   margin-top: 40px;
 }
+.Buttons button:disabled {
+  background-color: rgba(59, 130, 246, 0.5);
+  color: rgb(251, 96, 135);
+  border: 1px solid rgba(59, 130, 246, 0.5);
+}
 
 .Button {
   padding: 10px;
@@ -92,7 +89,27 @@ body {
   cursor: pointer;
   background-color: transparent;
   border: 1px solid rgb(251, 96, 135);
-  color: rgb(251, 96, 135);
+  color: white;
+}
+
+.Footer {
+  height: 10vh;
+  text-align: center;
+}
+.Footer a {
+  color: rgba(59, 130, 246, 0.5);
+}
+
+.Toggled {
+  animation: abanico;
+  animation-duration: 0.5s;
+}
+
+@keyframes abanico {
+  70% {
+    transform: rotate3d(-1, 0, 0, 180deg) translateY(-25px);
+    opacity: 0;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
