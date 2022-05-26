@@ -60,24 +60,25 @@ const resetTimer = () => {
 }
 
 
-let buttons = document.querySelector('#buttons');
 let play = document.querySelector('#start');
 let pause = document.querySelector('#pause');
 
-buttons.addEventListener('click', (e) => {
-    if (e.target.id === "start") {
+document.addEventListener('click', (e) => {
+    const clickedElement =  e.target
+    if (clickedElement.matches('#start')) {
+        console.log(clickedElement);
         startTimer();
-        e.target.setAttribute(`disabled`, ``);
-        pause.removeAttribute(`disabled`);
+        play.classList.add(`not-active`);
+        pause.classList.remove(`not-active`);
     }
-    else if (e.target.id === "pause") {
-        play.removeAttribute(`disabled`)
-        e.target.setAttribute(`disabled`, ``);
+    else if (clickedElement.matches('#pause')) {
+        play.classList.remove(`not-active`);
+        pause.classList.add(`not-active`);
         pauseTimer()
     }
-    else if (e.target.id === "reset") {
-        pause.removeAttribute(`disabled`);
-        play.removeAttribute(`disabled`)
+    else if (clickedElement.matches("#reset")) {
+        play.classList.remove(`not-active`);
+        pause.classList.remove(`not-active`);
         resetTimer();
     }
 })

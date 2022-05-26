@@ -88,13 +88,24 @@ body{
 }
 
 .Button{
-    padding: 10px;
     border-radius: 10%;
     cursor: pointer;
     background-color: transparent;
     border: 1px solid $very-pink;
-    color: white;
+    color: $very-pink;
+    font-size: 1.6rem;
+    & i{
+        width: 100%;
+        padding: 10px;
+    }
 }
+
+.not-active { 
+    pointer-events: none; 
+    cursor: default; 
+    background-color: $blue-light;
+} 
+
 
 .Footer{
     height: 10vh;

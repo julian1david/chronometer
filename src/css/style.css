@@ -84,12 +84,22 @@ body {
 }
 
 .Button {
-  padding: 10px;
   border-radius: 10%;
   cursor: pointer;
   background-color: transparent;
   border: 1px solid rgb(251, 96, 135);
-  color: white;
+  color: rgb(251, 96, 135);
+  font-size: 1.6rem;
+}
+.Button i {
+  width: 100%;
+  padding: 10px;
+}
+
+.not-active {
+  pointer-events: none;
+  cursor: default;
+  background-color: rgba(59, 130, 246, 0.5);
 }
 
 .Footer {
