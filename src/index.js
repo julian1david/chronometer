@@ -1,23 +1,28 @@
-let seconds = document.querySelector('#seconds');
-let minutes = document.querySelector('#minutes');
-let hours = document.querySelector('#hours');
-let animable = document.querySelectorAll('.Time__side-a');
+const seconds = document.querySelector('#seconds');
+const minutes = document.querySelector('#minutes');
+const hours = document.querySelector('#hours');
+const animable = document.querySelectorAll('.Time__side-a');
+const title = document.querySelector('.Hero__title')
 const heroContainer = document.querySelector('.Hero__time');
-let play = document.querySelector('#start');
-let pause = document.querySelector('#pause');
-let title = document.querySelector('.Hero__title')
+const play = document.querySelector('#start');
+const pause = document.querySelector('#pause');
+const navChronometer = document.querySelector('#chronometer');
+const navTimer = document.querySelector('#timer');
+const navPomodoro = document.querySelector('#pomodoro');
 
+let bandera = false;
 let animations = [...animable];
 let secondsValue = 0;
 let minutesValue = 0;
 let hoursValue = 0;
 let currentTimer;
+let currentButton;
 
 animations.forEach(item => item.addEventListener('animationend', () => {
     item.classList.remove('Toggled')
 }));
 
-function formatTime(valor) {
+const formatTime = (valor) => {
     return ("0" + valor).slice(-2)
 }
 
@@ -53,8 +58,7 @@ const divContainer = ({
     return containerTime;
 }
 
-
-//Funcion para pintar chronometros
+//Paint clock
 
 const painClock = () => {
 
@@ -86,10 +90,7 @@ const painClock = () => {
     return heroContainer
 }
 
-
-// paint Timer 
-
-
+//Create Inputs 
 const divInputs = () => {
     
     const inputsTimers = [];
@@ -119,69 +120,110 @@ const divInputs = () => {
 
     inputContainer.append(...inputsTimers);
 
+
     return inputContainer
     
 
 }
-const paintTimer = ()  => {
-
-    title.textContent = 'Timer';
-    const inputsDivs = divInputs();
-    heroContainer.append(inputsDivs);
-    console.log(inputsDivs);
-    if(play.id === "start"){
-        play.id = "startTimer";
-    }
-
-}
-
 
 const removeinput = () => {
     const inputContainer = document.querySelector('.Input');
-    heroContainer.removeChild(inputContainer)
+    heroContainer.removeChild(inputContainer);
+    bandera = false
 }
-const cronometro = () => {
 
-    secondsValue++;
-    seconds.textContent = formatTime(secondsValue);
-    animable[2].classList.add('Toggled');
-    //Cuando el intervalo lleve secondsValue a 59            
-    if (secondsValue == 59) {
-        secondsValue = -1;
-    }
-    if (secondsValue == 0) {
-        minutesValue++;
-        minutes.textContent = formatTime(minutesValue);
-        animations[1].classList.add('Toggled');
-    }
-    if (minutesValue == 59) {
-        minutesValue = -1;
-    }
-    if (secondsValue == 0 && minutesValue == 0) {
-        hoursValue++;
-        hours.textContent = formatTime(hoursValue);
-        animations[0].classList.add('Toggled');
+//Paint pages
+const paintChronometer = () => {
+    navChronometer.classList.add('not-active');
+    navTimer.classList.remove('not-active');
+    navPomodoro.classList.remove('not-active');
+    title.textContent = 'Chronometer';
+    if(play.id != "start"){
+        play.id = "start"
     }
 }
 
-const startTimer = () => {
+const paintTimer = ()  => {
+    navChronometer.classList.remove('not-active');
+    navTimer.classList.add('not-active');
+    navPomodoro.classList.remove('not-active');
+    title.textContent = 'Timer';
+    const inputsDivs = divInputs();
+    heroContainer.append(inputsDivs);
+    bandera = true;
+    if(play.id != "startTimer"){
+        play.id = "startTimer";        
+    }
+}
+
+const paintPomodoro = () => {
+    navChronometer.classList.remove('not-active');
+    navTimer.classList.remove('not-active');
+    navPomodoro.classList.add('not-active');
+    title.textContent = 'Pomodoro';
+    if(play.id != "start"){
+        play.id = "start"
+    }
+}
+
+const startPomodoro = () => {
+    title.textContent = 'Pomodoro'
+    minutesValue = 25;
+    secondsValue = 59; 
+    secondsValue -= 1;
+    seconds.textContent = FormDataEvent(secondsValue)
+    if (secondsValue === 0)  {
+        secondsValue -= 1;
+    }
+}
+
+//Chronometre
+const startChronometer = () => {
+
+    play.classList.add(`not-active`);
+    pause.classList.remove(`not-active`);
+
     currentTimer = setInterval(() => {
-        cronometro()
+        secondsValue++;
+        animable[2].classList.add('Toggled');
+        //Cuando el intervalo lleve secondsValue a 59            
+        if (secondsValue === 60) {
+            secondsValue = 0;
+            minutesValue++;
+            minutes.textContent = formatTime(minutesValue);
+            animations[1].classList.add('Toggled');
+        }
+        if (minutesValue === 60) {
+            minutesValue =  0;
+            minutes.textContent = formatTime(minutesValue);
+        }
+        if (secondsValue == 0 && minutesValue == 0) {
+            hoursValue++;
+            hours.textContent = formatTime(hoursValue);
+            animations[0].classList.add('Toggled');
+        }
+        seconds.textContent = formatTime(secondsValue);
+
     }, 1000)
 }
 
+
 const pauseTimer = () => {
+    play.classList.remove(`not-active`);
+    pause.classList.add(`not-active`);
     clearInterval(currentTimer);
 }
 
 const resetTimer = () => {
+    play.classList.remove(`not-active`);
+    pause.classList.remove(`not-active`);
     minutesValue = 0;
     secondsValue = 0;
     hoursValue = 0;
     seconds.textContent = '00'
     minutes.textContent = '00'
     hours.textContent = '00'
-    clearInterval(currentTimer)
+    clearInterval(currentTimer);
 }
 
 const timer = () => {
@@ -189,35 +231,39 @@ const timer = () => {
 }
 
 
-
-
 document.addEventListener('click', (e) => {
     const clickedElement = e.target
 
     //Chronomer
     if (clickedElement.matches('#start')) {
-        startTimer();
-        play.classList.add(`not-active`);
-        pause.classList.remove(`not-active`);
+        startChronometer();
+        
     }
     else if (clickedElement.matches('#pause')) {
-        play.classList.remove(`not-active`);
-        pause.classList.add(`not-active`);
         pauseTimer()
     }
     else if (clickedElement.matches("#reset")) {
-        play.classList.remove(`not-active`);
-        pause.classList.remove(`not-active`);
         resetTimer();
     }
-
-
-    //Timer
+    else if (clickedElement.matches('#chronometer')){
+        resetTimer();
+        paintChronometer();
+        if(bandera){
+            removeinput();
+        }
+    }
     else if (clickedElement.matches('#timer')){
+        resetTimer()
         paintTimer();
     }
+    else if (clickedElement.matches('#pomodoro')){
+        resetTimer();
+        paintPomodoro();
+        if(bandera){
+            removeinput();
+        }
+    }
     else if (clickedElement.matches('#startTimer')){
-        removeinput();
         console.log('hello');
     }
 })
