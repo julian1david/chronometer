@@ -15,12 +15,32 @@ body {
   font-family: "Red Hat Display", sans-serif;
 }
 
-.Header {
-  width: 100%;
+ul {
+  list-style: none;
 }
 
+.Header {
+  height: 6vh;
+  width: 100%;
+  padding: 10px;
+}
+
+.Nav {
+  padding: 0 40px;
+}
+.Nav__list {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.Nav__list-item {
+  text-align: center;
+}
+.Nav__list-item p {
+  margin-bottom: 10px;
+}
 .Main {
-  height: 90vh;
+  height: 84vh;
   width: 100%;
   display: flex;
   align-items: center;
@@ -71,27 +91,36 @@ body {
   font-size: 1.4rem;
 }
 
+.Input {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.Input__item {
+  padding: 4px;
+  border-radius: 4px;
+  background: transparent;
+  color: white;
+  border: 1px solid rgb(251, 96, 135);
+}
+
 .Buttons {
   display: flex;
   justify-content: space-between;
   gap: 40px;
   margin-top: 40px;
 }
-.Buttons button:disabled {
-  background-color: rgba(59, 130, 246, 0.5);
-  color: rgb(251, 96, 135);
-  border: 1px solid rgba(59, 130, 246, 0.5);
-}
 
-.Button {
+.Button, .Nav__button {
   border-radius: 10%;
-  cursor: pointer;
   background-color: transparent;
   border: 1px solid rgb(251, 96, 135);
   color: rgb(251, 96, 135);
   font-size: 1.6rem;
 }
-.Button i {
+.Button i, .Nav__button i {
+  cursor: pointer;
   width: 100%;
   padding: 10px;
 }

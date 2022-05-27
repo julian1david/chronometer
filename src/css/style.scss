@@ -19,12 +19,36 @@ body{
     font-family: 'Red Hat Display', sans-serif;
 }
 
+ul{
+    list-style: none;
+}
+
 .Header{
+    height: 6vh;
     width: 100%;
+    padding: 10px;
+}
+
+.Nav{
+    padding:  0 40px;
+    &__list{
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        &-item{
+            text-align: center;
+            & p{
+                margin-bottom: 10px
+            }
+        }
+    }
+    &__button{
+        @extend .Button;
+    }
 }
 
 .Main{
-    height: 90vh;
+    height: 84vh;
     width: 100%;
     display: flex;
     align-items: center;
@@ -75,26 +99,34 @@ body{
         font-size: 1.4rem;
     }
 }
+.Input{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    &__item{
+        padding: 4px;
+        border-radius: 4px;
+        background: transparent;
+        color: white;
+        border: 1px solid $very-pink;
+    }
+}
 .Buttons{
     display: flex;
     justify-content: space-between;
     gap: 40px;
     margin-top: 40px;
-    & button:disabled{
-        background-color: $blue-light;
-        color: $very-pink;
-        border: 1px solid $blue-light;
-    }
 }
 
 .Button{
     border-radius: 10%;
-    cursor: pointer;
     background-color: transparent;
     border: 1px solid $very-pink;
     color: $very-pink;
     font-size: 1.6rem;
     & i{
+        cursor: pointer;
         width: 100%;
         padding: 10px;
     }
