@@ -160,21 +160,44 @@ const paintPomodoro = () => {
     navChronometer.classList.remove('not-active');
     navTimer.classList.remove('not-active');
     navPomodoro.classList.add('not-active');
-    title.textContent = 'Pomodoro';
-    if(play.id != "start"){
-        play.id = "start"
+    title.textContent = 'Pomodoro'
+    minutesValue = 2;
+    minutes.textContent = formatTime(minutesValue);
+    if(play.id != "startPomodoro"){
+        play.id = "startPomodoro"
     }
 }
 
+
 const startPomodoro = () => {
-    title.textContent = 'Pomodoro'
-    minutesValue = 25;
-    secondsValue = 59; 
-    secondsValue -= 1;
-    seconds.textContent = FormDataEvent(secondsValue)
-    if (secondsValue === 0)  {
+    play.classList.add(`not-active`);
+    pause.classList.remove(`not-active`);
+    currentTimer = setInterval(()=>{
         secondsValue -= 1;
-    }
+        if(secondsValue === -1){
+            secondsValue = 9;
+            minutesValue -= 1;
+        }
+        if(secondsValue === 0 && minutesValue === 0){
+            play.classList.remove(`not-active`);
+            clearInterval(currentTimer)
+            const title = document.createElement('p');
+            title.textContent = "Ha finalizado el pomodoro"
+            heroContainer.appendChild(title);
+            
+        }
+        minutes.textContent = formatTime(minutesValue)
+        seconds.textContent = formatTime(secondsValue);
+    },1000)
+}
+
+const intervalPomodoro = () =>{
+    minutesValue = 5;
+    secondsValue = 0;
+    currentTimer = setInterval(() => {
+        secondsValue = -1;
+        minutesValue -= 1;
+    },1000)
 }
 
 //Chronometre
@@ -217,12 +240,18 @@ const pauseTimer = () => {
 const resetTimer = () => {
     play.classList.remove(`not-active`);
     pause.classList.remove(`not-active`);
-    minutesValue = 0;
-    secondsValue = 0;
-    hoursValue = 0;
-    seconds.textContent = '00'
-    minutes.textContent = '00'
-    hours.textContent = '00'
+    if(play.id === "startPomodoro"){
+        minutesValue = 2;
+        secondsValue = 0;
+    }
+    else{
+        secondsValue = 0;
+        minutesValue = 0;
+        hoursValue = 0;
+    }
+    minutes.textContent = formatTime(minutesValue);
+    hours.textContent = formatTime(hoursValue);
+    seconds.textContent = formatTime(secondsValue);
     clearInterval(currentTimer);
 }
 
@@ -253,7 +282,7 @@ document.addEventListener('click', (e) => {
         }
     }
     else if (clickedElement.matches('#timer')){
-        resetTimer()
+        resetTimer();
         paintTimer();
     }
     else if (clickedElement.matches('#pomodoro')){
@@ -265,6 +294,9 @@ document.addEventListener('click', (e) => {
     }
     else if (clickedElement.matches('#startTimer')){
         console.log('hello');
+    }
+    else if (clickedElement.matches('#startPomodoro')){
+        startPomodoro()
     }
 })
 
