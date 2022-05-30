@@ -92,11 +92,11 @@ const painClock = () => {
 
 //Create Inputs 
 const divInputs = () => {
-    
+
     const inputsTimers = [];
-    
-    const inputContainer =  document.createElement('div');
-    inputContainer.className  = 'Input'
+
+    const inputContainer = document.createElement('div');
+    inputContainer.className = 'Input'
     const inputHours = document.createElement('input');
     inputHours.className = 'Input__item'
     const inputMinutes = document.createElement('input');
@@ -104,25 +104,25 @@ const divInputs = () => {
     const inputSeconds = document.createElement('input');
     inputSeconds.className = 'Input__item';
 
-    inputHours.setAttribute('id', 'inputMinutes');
-    inputMinutes.setAttribute('id','inputMinutes');
-    inputSeconds.setAttribute('id','inputseconds');
+    inputHours.setAttribute('name', 'inputHours');
+    inputMinutes.setAttribute('name', 'inputMinutes');
+    inputSeconds.setAttribute('name', 'inputseconds');
 
-    inputHours.setAttribute('type','text');
-    inputMinutes.setAttribute('type','text');
-    inputSeconds.setAttribute('type','text');
+    inputHours.setAttribute('type', 'text');
+    inputMinutes.setAttribute('type', 'text');
+    inputSeconds.setAttribute('type', 'text');
 
-    inputHours.setAttribute('placeholder','Hours');
-    inputMinutes.setAttribute('placeholder','Minutes');
-    inputSeconds.setAttribute('placeholder','Seconds');
+    inputHours.setAttribute('placeholder', 'Hours');
+    inputMinutes.setAttribute('placeholder', 'Minutes');
+    inputSeconds.setAttribute('placeholder', 'Seconds');
 
-    inputsTimers.push(inputHours,inputMinutes,inputSeconds);
+    inputsTimers.push(inputHours, inputMinutes, inputSeconds);
 
     inputContainer.append(...inputsTimers);
 
 
     return inputContainer
-    
+
 
 }
 
@@ -138,12 +138,12 @@ const paintChronometer = () => {
     navTimer.classList.remove('not-active');
     navPomodoro.classList.remove('not-active');
     title.textContent = 'Chronometer';
-    if(play.id != "start"){
+    if (play.id != "start") {
         play.id = "start"
     }
 }
 
-const paintTimer = ()  => {
+const paintTimer = () => {
     navChronometer.classList.remove('not-active');
     navTimer.classList.add('not-active');
     navPomodoro.classList.remove('not-active');
@@ -151,8 +151,8 @@ const paintTimer = ()  => {
     const inputsDivs = divInputs();
     heroContainer.append(inputsDivs);
     bandera = true;
-    if(play.id != "startTimer"){
-        play.id = "startTimer";        
+    if (play.id != "startTimer") {
+        play.id = "startTimer";
     }
 }
 
@@ -163,7 +163,7 @@ const paintPomodoro = () => {
     title.textContent = 'Pomodoro'
     minutesValue = 2;
     minutes.textContent = formatTime(minutesValue);
-    if(play.id != "startPomodoro"){
+    if (play.id != "startPomodoro") {
         play.id = "startPomodoro"
     }
 }
@@ -172,32 +172,44 @@ const paintPomodoro = () => {
 const startPomodoro = () => {
     play.classList.add(`not-active`);
     pause.classList.remove(`not-active`);
-    currentTimer = setInterval(()=>{
+    minutesValue = 2;
+    currentTimer = setInterval(() => {
         secondsValue -= 1;
-        if(secondsValue === -1){
+        if (secondsValue === -1) {
             secondsValue = 9;
             minutesValue -= 1;
         }
-        if(secondsValue === 0 && minutesValue === 0){
-            play.classList.remove(`not-active`);
-            clearInterval(currentTimer)
-            const title = document.createElement('p');
-            title.textContent = "Ha finalizado el pomodoro"
-            heroContainer.appendChild(title);
-            
+        if (secondsValue === 0 && minutesValue === 0) {
+            clearInterval(currentTimer);
+            intervalPomodoro();
         }
         minutes.textContent = formatTime(minutesValue)
         seconds.textContent = formatTime(secondsValue);
-    },1000)
+    }, 1000)
 }
 
-const intervalPomodoro = () =>{
-    minutesValue = 5;
-    secondsValue = 0;
+const intervalPomodoro = () => {
+    const title = document.createElement('p');
+    title.textContent = "Time for Rest"
+    heroContainer.appendChild(title);
+    secondsValue = 1;
+    minutesValue = 2;
     currentTimer = setInterval(() => {
-        secondsValue = -1;
-        minutesValue -= 1;
-    },1000)
+        secondsValue -= 1;
+        if (secondsValue === -1) {
+            secondsValue = 9;
+            minutesValue -= 1;
+        }
+        if (secondsValue === 0 && minutesValue === 0) {
+            secondsValue = 0;
+            clearInterval(currentTimer);
+            heroContainer.removeChild(title);
+            startPomodoro();
+
+        }
+        minutes.textContent = formatTime(minutesValue);
+        seconds.textContent = formatTime(secondsValue);
+    }, 1000)
 }
 
 //Chronometre
@@ -217,10 +229,10 @@ const startChronometer = () => {
             animations[1].classList.add('Toggled');
         }
         if (minutesValue === 60) {
-            minutesValue =  0;
+            minutesValue = 0;
             minutes.textContent = formatTime(minutesValue);
         }
-        if (secondsValue == 0 && minutesValue == 0) {
+        if (secondsValue === 0 && minutesValue === 0) {
             hoursValue++;
             hours.textContent = formatTime(hoursValue);
             animations[0].classList.add('Toggled');
@@ -240,14 +252,13 @@ const pauseTimer = () => {
 const resetTimer = () => {
     play.classList.remove(`not-active`);
     pause.classList.remove(`not-active`);
-    if(play.id === "startPomodoro"){
+    secondsValue = 0;
+    hoursValue = 0;
+    if (play.id === "startPomodoro") {
         minutesValue = 2;
-        secondsValue = 0;
     }
-    else{
-        secondsValue = 0;
+    else {
         minutesValue = 0;
-        hoursValue = 0;
     }
     minutes.textContent = formatTime(minutesValue);
     hours.textContent = formatTime(hoursValue);
@@ -255,8 +266,27 @@ const resetTimer = () => {
     clearInterval(currentTimer);
 }
 
-const timer = () => {
+function startTimer() {
+    const minutesInput = parseInt(event.target.minutesInput);
+    console.log(minutesInput);
 
+    minutes.textContent = minutesInput;
+    seconds.textContent = minutesInput;
+    secondsValue = minutesInput;
+    minutesValue = minutesInput;
+
+    currentInterval = setInterval(() => {
+        secondsValue -= 1;
+        if (secondsValue === -1) {
+            secondsValue = 59;
+            minutesValue -= 1;
+        }
+        if (minutesValue === 0 && secondsValue === 0) {
+            clearInterval(currentInterval);
+        }
+        minutes.textContent = formatValue(minutesValue);
+        seconds.textContent = formatValue(secondsValue);
+    }, 1000);
 }
 
 
@@ -266,7 +296,7 @@ document.addEventListener('click', (e) => {
     //Chronomer
     if (clickedElement.matches('#start')) {
         startChronometer();
-        
+
     }
     else if (clickedElement.matches('#pause')) {
         pauseTimer()
@@ -274,28 +304,28 @@ document.addEventListener('click', (e) => {
     else if (clickedElement.matches("#reset")) {
         resetTimer();
     }
-    else if (clickedElement.matches('#chronometer')){
-        resetTimer();
+    else if (clickedElement.matches('#chronometer')) {
         paintChronometer();
-        if(bandera){
+        resetTimer();
+        if (bandera) {
             removeinput();
         }
     }
-    else if (clickedElement.matches('#timer')){
-        resetTimer();
+    else if (clickedElement.matches('#timer')) {
         paintTimer();
-    }
-    else if (clickedElement.matches('#pomodoro')){
         resetTimer();
+    }
+    else if (clickedElement.matches('#pomodoro')) {
         paintPomodoro();
-        if(bandera){
+        resetTimer();
+        if (bandera) {
             removeinput();
         }
     }
-    else if (clickedElement.matches('#startTimer')){
-        console.log('hello');
+    else if (clickedElement.matches('#startTimer')) {
+        startTimer();
     }
-    else if (clickedElement.matches('#startPomodoro')){
+    else if (clickedElement.matches('#startPomodoro')) {
         startPomodoro()
     }
 })
