@@ -81,7 +81,6 @@ const painClock = () => {
     timers.push(hoursContainer, minutesContainer, secondsContainer);
     heroContainer.append(...timers)
 
-    console.log(heroContainer);
 
     seconds = document.querySelector('#seconds');
     minutes = document.querySelector('#minutes');
@@ -104,13 +103,17 @@ const divInputs = () => {
     const inputSeconds = document.createElement('input');
     inputSeconds.className = 'Input__item';
 
-    inputHours.setAttribute('name', 'inputHours');
-    inputMinutes.setAttribute('name', 'inputMinutes');
-    inputSeconds.setAttribute('name', 'inputseconds');
+    inputHours.setAttribute('id', 'inputHours');
+    inputMinutes.setAttribute('id', 'inputMinutes');
+    inputSeconds.setAttribute('id', 'inputseconds');
 
-    inputHours.setAttribute('type', 'text');
-    inputMinutes.setAttribute('type', 'text');
-    inputSeconds.setAttribute('type', 'text');
+    inputHours.setAttribute('type', 'number');
+    inputMinutes.setAttribute('type', 'number');
+    inputSeconds.setAttribute('type', 'number');
+
+    inputHours.setAttribute('required', '');
+    inputMinutes.setAttribute('required', '');
+    inputSeconds.setAttribute('required', '');
 
     inputHours.setAttribute('placeholder', 'Hours');
     inputMinutes.setAttribute('placeholder', 'Minutes');
@@ -242,6 +245,29 @@ const startChronometer = () => {
     }, 1000)
 }
 
+function startTimer() {
+    const minutesInput = parseInt(document.querySelector('#inputMinutes').value)
+    const secondsInput = parseInt(document.querySelector('#inputseconds').value)
+
+    minutes.textContent = minutesInput;
+    seconds.textContent = secondsInput;
+
+    minutesValue = minutesInput;
+    secondsValue = secondsInput;
+    
+    currentTimer = setInterval(() => {
+        secondsValue -= 1;
+        if (secondsValue === -1) {
+            secondsValue = 59;
+            minutesValue -= 1;
+        }
+        if (minutesValue === 0 && secondsValue === 0) {
+            clearInterval(currentTimer);
+        }
+        minutes.textContent = formatTime(minutesValue);
+        seconds.textContent = formatTime(secondsValue);
+    }, 1000);
+}
 
 const pauseTimer = () => {
     play.classList.remove(`not-active`);
@@ -266,28 +292,7 @@ const resetTimer = () => {
     clearInterval(currentTimer);
 }
 
-function startTimer() {
-    const minutesInput = parseInt(event.target.minutesInput);
-    console.log(minutesInput);
 
-    minutes.textContent = minutesInput;
-    seconds.textContent = minutesInput;
-    secondsValue = minutesInput;
-    minutesValue = minutesInput;
-
-    currentInterval = setInterval(() => {
-        secondsValue -= 1;
-        if (secondsValue === -1) {
-            secondsValue = 59;
-            minutesValue -= 1;
-        }
-        if (minutesValue === 0 && secondsValue === 0) {
-            clearInterval(currentInterval);
-        }
-        minutes.textContent = formatValue(minutesValue);
-        seconds.textContent = formatValue(secondsValue);
-    }, 1000);
-}
 
 
 document.addEventListener('click', (e) => {
