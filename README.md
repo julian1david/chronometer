@@ -10,7 +10,7 @@ Mira **[Chronometer-Page](https://julianf-dev.github.io/chronometer/)** para con
 ### Instalación 🔧
 
 ```
-git clone git@github.com:julian1david/chronometer.git
+git clone git@github.com:julianf-dev/chronometer.git
 ```
 
 Inicia el ./public/index.html  tu navegador
