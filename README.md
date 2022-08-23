@@ -4,7 +4,7 @@ A simple example of a one Chronometer
 
 ## Vista del proyecto 🚀
 
-Mira **[Chronometer-Page](https://julian1david.github.io/chronometer/)** para conocer como funciona el proyecto.
+Mira **[Chronometer-Page](https://julianf-dev.github.io/chronometer/)** para conocer como funciona el proyecto.
 
 
 ### Instalación 🔧
